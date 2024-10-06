@@ -1,0 +1,127 @@
+
+version: 2
+
+models:
+    - name: stg_brands
+      description: "Stage table for brands."
+      columns:
+        - name: brand_id
+          tests:
+            - not_null
+            - unique
+            - relationships:
+                field: brand_id
+                to: ref('stg_products')
+    
+    - name: stg_categories
+      description: "Stage table for categories"
+      columns:
+        - name: category_id
+          tests:
+            - not_null
+            - unique
+            - relationships:
+                field: category_id
+                to: ref('stg_products')
+    
+    - name: stg_customers
+      description: "Stage table for customers"
+      columns:
+        - name: customer_id
+          tests:
+            - not_null
+            - unique
+            - relationships:
+                field: customer_id
+                to: ref('stg_orders')
+    
+    - name: stg_order_items
+      description: "Stage table for Order-Items"
+      columns:
+        - name: order_id
+          tests:
+            - not_null
+            - relationships:
+                field: order_id
+                to: ref('stg_orders')
+        - name: product_id
+          tests:
+            - not_null
+            - relationships:
+                field: product_id
+                to: ref('stg_products')
+
+    - name: stg_orders
+      description: "Stage table for orders"
+      columns:
+        - name: order_id
+          tests:
+            - not_null
+            - unique
+            - relationships:
+                to: ref('stg_order_items')
+                field: order_id
+        
+        - name: customer_id
+          tests:
+            - relationships:
+                field: customer_id
+                to: ref('stg_customers')
+        
+        - name: staff_id
+          tests:
+            - relationships:
+                field: staff_id
+                to: ref('stg_staffs')
+
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stg_stores')
+    
+    - name: stg_products
+      description: "Stage table for products"
+      columns:
+        - name: product_id
+          tests:
+            - not_null
+            - unique
+    
+    - name: stg_staffs
+      description: "Stage table for staffs"
+      columns:
+        - name: staff_id
+          tests:
+            - not_null
+            - unique
+
+    - name: stg_stocks
+      description: "Stage table for stocks"
+      columns:
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stg_stores')
+        
+        - name: product_id
+          tests:
+            - relationships:
+                field: product_id
+                to: ref('stg_products')
+    
+    - name: stg_stores
+      description: "Stage table for stores"
+      columns:
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stg_stores')
+        
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stg_staffs')

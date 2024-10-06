@@ -1,0 +1,1 @@
+select * from raw.bike_shop.order_items;

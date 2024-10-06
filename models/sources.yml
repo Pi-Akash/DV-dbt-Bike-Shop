@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: bike_shop
+    description: The data is stored in AWS S3 Bucket but is staged through Snowflake.
+    database: raw
+    schema: bike_shop
+    tables:
+      - name: customers
+        description: One record per customer and their information
+      - name: orders
+        description: One record per Order and who created the order
+      - name: staffs
+        description: Details of working staff and their communication information
+      - name: stores
+        description: Stores information
+      - name: order_items
+        description: Line items of sales orders, each row belongs to a sales order specified by the "order_id" column
+      - name: categories
+        description: Bike categories information
+      - name: products
+        description: Product Information
+      - name: stocks
+        description: Inventory information
+      - name: brands
+        description: Brand information of bikes
