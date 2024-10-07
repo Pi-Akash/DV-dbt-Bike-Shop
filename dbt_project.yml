@@ -42,10 +42,12 @@ models:
   DV_Bike_Shop:
     Raw:
       +materialized: table
-      +tag: 
-        - 'raw'
+      +tags: 
+        - "raw"  
+        - "bike shop"
 
     Stage:
       +materialized: view
-      +tag:
-        - 'stage'
+      +tags: 
+        - "stage"
+        - "bike shop"
