@@ -40,6 +40,12 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   DV_Bike_Shop:
-    # Applies to all files under models/example/
+    Raw:
+      +materialized: table
+      +tag: 
+        - 'raw'
+
     Stage:
       +materialized: view
+      +tag:
+        - 'stage'
