@@ -4,89 +4,127 @@ version: 2
 models:
     - name: orders_raw
       description: "Raw Orders table with some additional derived columns"
-      # columns:
-      #   - name: order_id
-      #     tests:
-      #       - not_null
-      #       - unique
-      #       - relationships:
-      #           to: ref('stg_order_items')
-      #           field: order_id
+      columns:
+        - name: order_id
+          tests:
+            - not_null
+            - unique
+            - relationships:
+                to: ref('order_items_raw')
+                field: order_id
         
-      #   - name: customer_id
-      #     tests:
-      #       - relationships:
-      #           field: customer_id
-      #           to: ref('stg_customers')
+        - name: customer_id
+          tests:
+            - relationships:
+                field: customer_id
+                to: ref('customers_raw')
         
-      #   - name: staff_id
-      #     tests:
-      #       - relationships:
-      #           field: staff_id
-      #           to: ref('stg_staffs')
+        - name: staff_id
+          tests:
+            - relationships:
+                field: staff_id
+                to: ref('staffs_raw')
 
-      #   - name: store_id
-      #     tests:
-      #       - relationships:
-      #           field: store_id
-      #           to: ref('stg_stores')
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stores_raw')
 
     - name: brands_raw
       description: "Raw Brands table with some additional derived columns"
-      # columns:
-      #   - name: brand_id
-      #     tests:
-      #       - not_null
-      #       - unique
-      #       - relationships:
-      #           field: brand_id
-      #           to: ref('stg_products')
+      columns:
+        - name: brand_id
+          tests:
+            - not_null
+            - unique
+            - relationships:
+                field: brand_id
+                to: ref('products_raw')
 
     - name: categories_raw
       description: "Raw Categories table with some additional derived columns"
-      # columns:
-      #   - name: category_id
-      #     tests:
-      #       - not_null
-      #       - unique
-      #       - relationships:
-      #           field: category_id
-      #           to: ref('stg_products')
+      columns:
+        - name: category_id
+          tests:
+            - not_null
+            - unique
+            - relationships:
+                field: category_id
+                to: ref('products_raw')
 
     - name: customers_raw
       description: "Raw Customers table with some additional derived columns"
-      # columns:
-      #   - name: customer_id
-      #     tests:
-      #       - not_null
-      #       - unique
-      #       - relationships:
-      #           field: customer_id
-      #           to: ref('stg_orders')
+      columns:
+        - name: customer_id
+          tests:
+            - not_null
+            - unique
+            - relationships:
+                field: customer_id
+                to: ref('orders_raw')
     
     - name: order_items_raw
       description: "Raw line item table with some additional derived columns"
-      # columns:
-      #   - name: order_id
-      #     tests:
-      #       - not_null
-      #       - relationships:
-      #           field: order_id
-      #           to: ref('stg_orders')
-      #   - name: product_id
-      #     tests:
-      #       - not_null
-      #       - relationships:
-      #           field: product_id
-      #           to: ref('stg_products')
+      columns:
+        - name: order_id
+          tests:
+            - not_null
+            - relationships:
+                field: order_id
+                to: ref('orders_raw')
+        - name: product_id
+          tests:
+            - not_null
+            - relationships:
+                field: product_id
+                to: ref('products_raw')
     
     - name: products_raw
       description: "Raw products table with some additional derived columns"
-      # columns:
-      #   - name: product_id
-      #     tests:
-      #       - not_null
-      #       - unique
+      columns:
+        - name: product_id
+          tests:
+            - not_null
+            - unique
+
+    - name: staffs_raw
+      description: "Raw staffs table with some additional derived columns"
+      columns:
+        - name: staff_id
+          tests:
+            - not_null
+            - unique
+    
+    - name: stocks_raw
+      description: "Raw stocks table with some additional derived columns"
+      columns:
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stores_raw')
+        
+        - name: product_id
+          tests:
+            - relationships:
+                field: product_id
+                to: ref('products_raw')
+    
+    - name: stores_raw
+      description: "Raw stores table with some additional derived columns"
+      columns:
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stores_raw')
+        
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('staffs_raw')
 
     - name: stg_brands
       description: "Stage table for brands."
@@ -99,50 +137,19 @@ models:
       
     - name: stg_order_items
       description: "Stage table for Order-Items"
-      
 
     - name: stg_orders
       description: "Stage table for orders"
       
-    
     - name: stg_products
       description: "Stage table for products"
       
-    
     - name: stg_staffs
       description: "Stage table for staffs"
-      columns:
-        - name: staff_id
-          tests:
-            - not_null
-            - unique
 
     - name: stg_stocks
       description: "Stage table for stocks"
-      columns:
-        - name: store_id
-          tests:
-            - relationships:
-                field: store_id
-                to: ref('stg_stores')
-        
-        - name: product_id
-          tests:
-            - relationships:
-                field: product_id
-                to: ref('stg_products')
-    
+      
     - name: stg_stores
       description: "Stage table for stores"
-      columns:
-        - name: store_id
-          tests:
-            - relationships:
-                field: store_id
-                to: ref('stg_stores')
-        
-        - name: store_id
-          tests:
-            - relationships:
-                field: store_id
-                to: ref('stg_staffs')
+      
