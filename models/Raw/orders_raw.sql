@@ -12,4 +12,4 @@ concat('Store_', store_id) as store_id,
 concat('Staff_', staff_id) as staff_id,
 load_date,
 'OLTP' as record_source
-from raw.bike_shop.orders
+from {{ source('bike_shop', 'orders')}}

@@ -2,6 +2,9 @@
 source_model: "stocks_raw"
 
 derived_columns:
+    STORE_BK: STORE_ID
+    PRODUCT_BK: PRODUCT_ID
+    QUANTITY: QUANTITY
     SOURCE: RECORD_SOURCE
     LOAD_DATETIME: LOAD_DATE
     START_DATE: "CURRENT_DATE()"

@@ -2,6 +2,14 @@
 source_model: "stores_raw"
 
 derived_columns:
+    STORE_BK: STORE_ID
+    STORE_NAME: STORE_NAME
+    PHONE: PHONE
+    EMAIL: EMAIL
+    STREET: STREET
+    CITY: CITY
+    STATE: STATE
+    ZIPCODE: ZIPCODE
     SOURCE: RECORD_SOURCE
     LOAD_DATETIME: LOAD_DATE
     START_DATE: "CURRENT_DATE()"

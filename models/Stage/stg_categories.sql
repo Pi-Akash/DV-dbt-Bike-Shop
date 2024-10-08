@@ -2,6 +2,8 @@
 source_model: "categories_raw"
 
 derived_columns:
+    CATEGORY_BK: CATEGORY_ID
+    CATEGORY_NAME: CATEGORY_NAME
     SOURCE: RECORD_SOURCE
     LOAD_DATETIME: LOAD_DATE
     START_DATE: "CURRENT_DATE()"

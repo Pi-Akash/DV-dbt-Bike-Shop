@@ -40,6 +40,11 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   DV_Bike_Shop:
+    Marts:
+      +materialized: view
+      +tags:
+        - "mart"
+
     Raw:
       +materialized: table
       +tags: 
@@ -51,3 +56,28 @@ models:
       +tags: 
         - "stage"
         - "bike shop"
+    
+    Vault:
+      +materialized: view
+      +tags:
+        - "vault"
+
+      hubs:
+        +materialized: view
+        +tags:
+          - "hubs"
+
+      links:
+        +materialized: view
+        +tags:
+          - "links"
+
+      sats:
+        +materialized: view
+        +tags:
+          - "sats"
+      
+      t_links:
+        +materialized: view
+        +tags:
+          - "t_links"

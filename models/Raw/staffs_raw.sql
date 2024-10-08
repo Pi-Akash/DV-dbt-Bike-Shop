@@ -12,4 +12,4 @@ case
 end as manager_id,
 load_date,
 'OLTP' as record_source
-from raw.bike_shop.staffs
+from {{ source('bike_shop', 'staffs')}}
