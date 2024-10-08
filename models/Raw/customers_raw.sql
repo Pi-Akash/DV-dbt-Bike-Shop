@@ -13,4 +13,4 @@ state,
 zipcode,
 load_date,
 'OLTP' as record_source
-from raw.bike_shop.customers
+from {{ source('bike_shop', 'customers')}}

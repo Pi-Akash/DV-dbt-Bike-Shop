@@ -4,4 +4,4 @@ concat('Product_', product_id) as product_id,
 quantity,
 load_date,
 'OLTP' as record_source
-from raw.bike_shop.stocks
+from {{ source('bike_shop', 'stocks')}}

@@ -1,14 +1,6 @@
 packages:
   - package: Datavault-UK/automate_dv
     version: 0.11.0
-  - package: dbt-labs/dbt_project_evaluator
-    version: 0.14.2
-  - package: dbt-labs/audit_helper
-    version: 0.12.0
-  - package: get-select/dbt_snowflake_monitoring
-    version: 5.3.1
   - package: dbt-labs/dbt_utils
     version: 1.3.0
-  - package: get-select/dbt_snowflake_query_tags
-    version: 2.5.0
-sha1_hash: 24c08e36d8c18ebcd5971a9b3a4008eeabb551c0
+sha1_hash: 24c627e2bbabab18e0bc30819b8b6d9104a378f4

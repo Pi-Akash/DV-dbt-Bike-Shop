@@ -7,4 +7,4 @@ list_price,
 discount,
 load_date,
 'OLTP' as record_source
-from raw.bike_shop.order_items
+from {{ source('bike_shop', 'order_items')}}
