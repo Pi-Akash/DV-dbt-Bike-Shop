@@ -131,7 +131,31 @@ models:
     
     - name: orders_stores_raw
       description: "Raw table containing relationship between orders and stores"
-
+      config:
+        contract:
+          enforced: true
+      
+      columns:
+        - name: order_id
+          data_type: string
+          description: "Mapping column from Order table"
+          constraints:
+            - type: not_null
+          tests:
+            - relationships:
+                field: order_id
+                to: ref('orders_raw')
+      
+        - name: store_id
+          data_type: string
+          description: "Mapping column from Store table"
+          constraints:
+            - type: not_null
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stores_raw')
+          
     - name: stg_brands
       description: "Stage table for brands."
       
@@ -197,7 +221,17 @@ models:
     
     - name: sat_customers
       description: "Satellite table with customers payload"
-    
+      latest_version: 2
+      versions:
+        - v: 2
+          columns:
+            - include: 'all'
+
+        - v: 1
+          columns:
+            - include: 'all'
+              exclude: [phone, email, street, city, state, zipcode]
+
     - name: sat_orders
       description: "Satellite table with orders payload"
     
@@ -206,3 +240,9 @@ models:
     
     - name: sat_stores
       description: "Satellite table with stores payload"
+    
+    - name: mart_sales_performance
+      description: "Mart for Sales Performance Data."
+    
+    - name: mart_customer_segmentation
+      description: "Mart for Customer Analysis"
