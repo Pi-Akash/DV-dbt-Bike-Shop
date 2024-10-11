@@ -131,6 +131,42 @@ models:
     
     - name: orders_stores_raw
       description: "Raw table containing relationship between orders and stores"
+      config:
+        contract:
+          enforced: true
+      
+      columns:
+        - name: order_id
+          data_type: string
+          description: "Mapping column from Order table"
+          constraints:
+            - type: not_null
+          tests:
+            - relationships:
+                field: order_id
+                to: ref('orders_raw')
+      
+        - name: store_id
+          data_type: string
+          description: "Mapping column from Store table"
+          constraints:
+            - type: not_null
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stores_raw')
+        
+        - name: load_date
+          data_type: datetime
+          description: "Load date for the records in table"
+          constraints:
+            - type: not_null
+
+        - name: record_source
+          data_type: string
+          description: "source for records in the table"
+          constraints:
+            - type: not_null
 
     - name: stg_brands
       description: "Stage table for brands."
