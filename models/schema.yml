@@ -2,8 +2,37 @@
 version: 2
 
 models:
-    - name: stg_brands
-      description: "Stage table for brands."
+    - name: orders_raw
+      description: "Raw Orders table with some additional derived columns"
+      columns:
+        - name: order_id
+          tests:
+            - not_null
+            - unique
+            - relationships:
+                to: ref('order_items_raw')
+                field: order_id
+        
+        - name: customer_id
+          tests:
+            - relationships:
+                field: customer_id
+                to: ref('customers_raw')
+        
+        - name: staff_id
+          tests:
+            - relationships:
+                field: staff_id
+                to: ref('staffs_raw')
+
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stores_raw')
+
+    - name: brands_raw
+      description: "Raw Brands table with some additional derived columns"
       columns:
         - name: brand_id
           tests:
@@ -11,10 +40,10 @@ models:
             - unique
             - relationships:
                 field: brand_id
-                to: ref('stg_products')
-    
-    - name: stg_categories
-      description: "Stage table for categories"
+                to: ref('products_raw')
+
+    - name: categories_raw
+      description: "Raw Categories table with some additional derived columns"
       columns:
         - name: category_id
           tests:
@@ -22,10 +51,10 @@ models:
             - unique
             - relationships:
                 field: category_id
-                to: ref('stg_products')
-    
-    - name: stg_customers
-      description: "Stage table for customers"
+                to: ref('products_raw')
+
+    - name: customers_raw
+      description: "Raw Customers table with some additional derived columns"
       columns:
         - name: customer_id
           tests:
@@ -33,95 +62,163 @@ models:
             - unique
             - relationships:
                 field: customer_id
-                to: ref('stg_orders')
+                to: ref('orders_raw')
     
-    - name: stg_order_items
-      description: "Stage table for Order-Items"
+    - name: order_items_raw
+      description: "Raw line item table with some additional derived columns"
       columns:
         - name: order_id
           tests:
             - not_null
             - relationships:
                 field: order_id
-                to: ref('stg_orders')
+                to: ref('orders_raw')
         - name: product_id
           tests:
             - not_null
             - relationships:
                 field: product_id
-                to: ref('stg_products')
+                to: ref('products_raw')
+    
+    - name: products_raw
+      description: "Raw products table with some additional derived columns"
+      columns:
+        - name: product_id
+          tests:
+            - not_null
+            - unique
+
+    - name: staffs_raw
+      description: "Raw staffs table with some additional derived columns"
+      columns:
+        - name: staff_id
+          tests:
+            - not_null
+            - unique
+    
+    - name: stocks_raw
+      description: "Raw stocks table with some additional derived columns"
+      columns:
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stores_raw')
+        
+        - name: product_id
+          tests:
+            - relationships:
+                field: product_id
+                to: ref('products_raw')
+    
+    - name: stores_raw
+      description: "Raw stores table with some additional derived columns"
+      columns:
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('stores_raw')
+        
+        - name: store_id
+          tests:
+            - relationships:
+                field: store_id
+                to: ref('staffs_raw')
+    
+    - name: orders_products_raw
+      description: "Raw table containing relationship between orders and products"
+    
+    - name: orders_stores_raw
+      description: "Raw table containing relationship between orders and stores"
+
+    - name: stg_brands
+      description: "Stage table for brands."
+      
+    - name: stg_categories
+      description: "Stage table for categories"
+      
+    - name: stg_customers
+      description: "Stage table for customers"
+      
+    - name: stg_order_items
+      description: "Stage table for Order-Items"
+
+    - name: stg_order_products
+      description: "Stage table for Order-product relationship"
+    
+    - name: stg_order_stores
+      description: "Stage table for Order-Store relationship"
 
     - name: stg_orders
       description: "Stage table for orders"
-      columns:
-        - name: order_id
-          tests:
-            - not_null
-            - unique
-            - relationships:
-                to: ref('stg_order_items')
-                field: order_id
-        
-        - name: customer_id
-          tests:
-            - relationships:
-                field: customer_id
-                to: ref('stg_customers')
-        
-        - name: staff_id
-          tests:
-            - relationships:
-                field: staff_id
-                to: ref('stg_staffs')
-
-        - name: store_id
-          tests:
-            - relationships:
-                field: store_id
-                to: ref('stg_stores')
-    
+      
     - name: stg_products
       description: "Stage table for products"
-      columns:
-        - name: product_id
-          tests:
-            - not_null
-            - unique
-    
+      
     - name: stg_staffs
       description: "Stage table for staffs"
-      columns:
-        - name: staff_id
-          tests:
-            - not_null
-            - unique
 
     - name: stg_stocks
       description: "Stage table for stocks"
-      columns:
-        - name: store_id
-          tests:
-            - relationships:
-                field: store_id
-                to: ref('stg_stores')
-        
-        - name: product_id
-          tests:
-            - relationships:
-                field: product_id
-                to: ref('stg_products')
-    
+      
     - name: stg_stores
       description: "Stage table for stores"
-      columns:
-        - name: store_id
-          tests:
-            - relationships:
-                field: store_id
-                to: ref('stg_stores')
-        
-        - name: store_id
-          tests:
-            - relationships:
-                field: store_id
-                to: ref('stg_staffs')
+    
+    - name: hub_brands
+      description: "Hub table for brands"
+    
+    - name: hub_categories
+      description: "Hub table for categories"
+    
+    - name: hub_customers
+      description: "Hub table for customers"
+    
+    - name: hub_orders
+      description: "Hub table for orders"
+    
+    - name: hub_products
+      description: "Hub table for products"
+    
+    - name: hub_staffs
+      description: "Hub table for staffs"
+    
+    - name: hub_stores
+      description: "Hub table for stores"
+    
+    - name: link_order_customer_store_staff
+      description: "Link table between Order, Customer, Store and Staff relationship"
+    
+    - name: link_order_product
+      description: "Link table between Order and Product relationship"
+    
+    - name: link_order_store
+      description: "Link table between Order and Store relationship"
+    
+    - name: sat_customers
+      description: "Satellite table with customers payload"
+      latest_version: 2
+      versions:
+        - v: 2
+          columns:
+            - include: 'all'
+
+        - v: 1
+          columns:
+            - include: 'all'
+              exclude: [phone, email, street, city, state, zipcode]
+
+    - name: sat_orders
+      description: "Satellite table with orders payload"
+    
+    - name: sat_products
+      description: "Satellite table with products payload"
+    
+    - name: sat_stores
+      description: "Satellite table with stores payload"
+    
+    - name: mart_sales_performance
+      description: "Mart for Sales Performance Data."
+    
+    - name: mart_customer_segmentation
+      description: "Mart for Customer Analysis"

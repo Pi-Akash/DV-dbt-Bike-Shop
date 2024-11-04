@@ -1,21 +1,20 @@
 {%- set yaml_metadata -%}
-source_model: "brands_raw"
+source_model: "orders_stores_raw"
 
 derived_columns:
-    BRAND_BK: BRAND_ID
-    BRAND_NAME: BRAND_NAME
     SOURCE: RECORD_SOURCE
     LOAD_DATETIME: LOAD_DATE
     START_DATE: "CURRENT_DATE()"
     END_DATE: "TO_DATE('9999-12-31')"
 
 hashed_columns:
-    BRAND_HK: "BRAND_ID"
-    BRAND_HASHDIFF:
-        is_hashdiff: true
+    ORDER_HK: "ORDER_ID"
+    STORE_HK: "STORE_ID"
+    ORDER_STORE_HK:
         columns:
-            - "BRAND_ID"
-            - "BRAND_NAME"
+            - "ORDER_ID"
+            - "STORE_ID"
+            
 {%- endset -%}
 
 {% set metadata_dict = fromyaml(yaml_metadata) %}
