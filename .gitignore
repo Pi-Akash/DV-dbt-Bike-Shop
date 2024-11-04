@@ -3,3 +3,7 @@
 target/
 dbt_packages/
 logs/
+configuration.yml
+configuration_template.yml
+research folder/contract_schema.yml
+soda_dbt_token.txt
